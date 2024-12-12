@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{C456DCA7-F649-424D-9D42-46A8DC0BD952}"
 	ProjectSection(SolutionItems) = preProject
 		create_database.sql = create_database.sql
+		mysql_models.mwb = mysql_models.mwb
+		mysql_models.mwb.bak = mysql_models.mwb.bak
 	EndProjectSection
 EndProject
 Global
