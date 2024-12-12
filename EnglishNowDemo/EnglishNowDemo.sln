@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishNowDemo.Web", "EnglishNowDemo.Web\EnglishNowDemo.Web.csproj", "{5B2F61DC-BC01-445F-B5ED-5606F13FD5CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{C456DCA7-F649-424D-9D42-46A8DC0BD952}"
+	ProjectSection(SolutionItems) = preProject
+		create_database.sql = create_database.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

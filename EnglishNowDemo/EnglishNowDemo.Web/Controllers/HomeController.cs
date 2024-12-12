@@ -15,6 +15,8 @@ namespace EnglishNowDemo.Web.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Abrindo a Home");
+
             return View();
         }
 
