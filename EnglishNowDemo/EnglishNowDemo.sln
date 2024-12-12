@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{
 		create_database.sql = create_database.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishNowDemo.Services", "EnglishNowDemo.Services\EnglishNowDemo.Services.csproj", "{18072214-2CC4-4B92-BB55-19E45C190443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishNowDemo.Repositories", "EnglishNowDemo.Repositories\EnglishNowDemo.Repositories.csproj", "{6ED2289D-B9E7-4485-A895-31431556AAC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{5B2F61DC-BC01-445F-B5ED-5606F13FD5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B2F61DC-BC01-445F-B5ED-5606F13FD5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B2F61DC-BC01-445F-B5ED-5606F13FD5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18072214-2CC4-4B92-BB55-19E45C190443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18072214-2CC4-4B92-BB55-19E45C190443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18072214-2CC4-4B92-BB55-19E45C190443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18072214-2CC4-4B92-BB55-19E45C190443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ED2289D-B9E7-4485-A895-31431556AAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED2289D-B9E7-4485-A895-31431556AAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED2289D-B9E7-4485-A895-31431556AAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED2289D-B9E7-4485-A895-31431556AAC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

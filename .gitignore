@@ -3,11 +3,11 @@
 ################################################################################
 
 /.vs
+/EnglishNowDemo/.vs
 /EnglishNowDemo/EnglishNowDemo.Web/EnglishNowDemo.Web.csproj.user
 /EnglishNowDemo/EnglishNowDemo.Web/bin
 /EnglishNowDemo/EnglishNowDemo.Web/obj
-/EnglishNowDemo/.vs
-/EnglishNowDemo/EnglishNowDemo.Repositories/bin/Debug/net8.0
+/EnglishNowDemo/EnglishNowDemo.Repositories/bin
 /EnglishNowDemo/EnglishNowDemo.Repositories/obj
-/EnglishNowDemo/EnglishNowDemo.Services/bin/Debug/net8.0
+/EnglishNowDemo/EnglishNowDemo.Services/bin
 /EnglishNowDemo/EnglishNowDemo.Services/obj
