@@ -10,4 +10,8 @@
     <ProjectReference Include="..\EnglishNowDemo.Services\EnglishNowDemo.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bootstrap\dist\" />
+  </ItemGroup>
+
 </Project>
