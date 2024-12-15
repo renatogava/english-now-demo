@@ -1,9 +1,11 @@
 using System.Diagnostics;
-using EnglishNowDemo.Web.Models;
+using EnglishNowDemo.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnglishNowDemo.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
