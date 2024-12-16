@@ -1,3 +1,4 @@
+using EnglishNowDemo.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services
         option.AccessDeniedPath = new PathString("/login");
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
+
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 

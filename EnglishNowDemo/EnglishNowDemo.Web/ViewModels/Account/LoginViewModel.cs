@@ -4,8 +4,8 @@ namespace EnglishNowDemo.Web.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Login obrigatório")]
-        public string? Login { get; set; }
+        [Required(ErrorMessage = "Usuário obrigatório")]
+        public string? Usuario { get; set; }
 
         [Required(ErrorMessage = "Senha obrigatória")]
         public string? Senha { get; set; }
