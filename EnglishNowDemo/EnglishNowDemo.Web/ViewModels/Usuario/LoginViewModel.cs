@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EnglishNowDemo.Web.ViewModels.Account
+namespace EnglishNowDemo.Web.ViewModels.Usuario
 {
     public class LoginViewModel
     {

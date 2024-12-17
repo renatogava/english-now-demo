@@ -1,19 +1,19 @@
-﻿using EnglishNowDemo.Web.ViewModels.Account;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using EnglishNowDemo.Services;
+using EnglishNowDemo.Web.ViewModels.Usuario;
 
 namespace EnglishNowDemo.Web.Controllers
 {
-    public class AccountController : Controller
+    public class UsuarioController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly IUsuarioService _usuarioService;
 
-        public AccountController(IAccountService accountService) 
+        public UsuarioController(IUsuarioService usuarioService) 
         {
-            _accountService = accountService;
+            _usuarioService = usuarioService;
         }
 
         [Route("login")]
@@ -31,7 +31,7 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            var loginResult = await _accountService.LoginAsync(model.Usuario!, model.Senha!);
+            var loginResult = await _usuarioService.LoginAsync(model.Usuario!, model.Senha!);
 
             if (!loginResult.LoginEfetuado)
             {
@@ -66,7 +66,7 @@ namespace EnglishNowDemo.Web.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Usuario");
         }
     }
 }

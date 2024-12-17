@@ -20,7 +20,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`usuario` (
   `usuario_id` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(100) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
   `papel_id` INT(45) NOT NULL,
   PRIMARY KEY (`usuario_id`),
@@ -120,3 +120,67 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`boletim` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+INSERT INTO `english_now_demo`.`papel`
+(`papel_id`,
+`descricao`)
+VALUES
+(1,
+'Administrador');
+
+INSERT INTO `english_now_demo`.`papel`
+(`papel_id`,
+`descricao`)
+VALUES
+(2,
+'Professor');
+
+INSERT INTO `english_now_demo`.`papel`
+(`papel_id`,
+`descricao`)
+VALUES
+(3,
+'Aluno');
+
+INSERT INTO `english_now_demo`.`nivel`
+(`nivel_id`,
+`descricao`)
+VALUES
+(1,
+'Básico');
+
+INSERT INTO `english_now_demo`.`nivel`
+(`nivel_id`,
+`descricao`)
+VALUES
+(2,
+'Intermediário');
+
+INSERT INTO `english_now_demo`.`nivel`
+(`nivel_id`,
+`descricao`)
+VALUES
+(3,
+'Avançado');
+
+INSERT INTO `english_now_demo`.`periodo`
+(`periodo_id`,
+`descricao`)
+VALUES
+(1,
+'Terça e Quinta 19h');
+
+INSERT INTO `english_now_demo`.`periodo`
+(`periodo_id`,
+`descricao`)
+VALUES
+(2,
+'Sábado 9h');
+
+
+INSERT INTO `english_now_demo`.`periodo`
+(`periodo_id`,
+`descricao`)
+VALUES
+(3,
+'Segunda e Quarta 15h');

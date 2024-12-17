@@ -1,3 +1,4 @@
+using EnglishNowDemo.Repositories;
 using EnglishNowDemo.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -15,7 +16,11 @@ builder.Services
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 
-builder.Services.AddScoped<IAccountService, AccountService>();
+var connectionString = builder.Configuration.GetConnectionString("EnglishNowConnectionString");
+
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(c => new UsuarioRepository(connectionString!));
 
 var app = builder.Build();
 
