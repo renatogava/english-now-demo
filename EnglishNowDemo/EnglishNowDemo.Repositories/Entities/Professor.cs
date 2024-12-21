@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace EnglishNowDemo.Repositories.Entities
 {
-    public class Usuario
+    public class Professor
     {
         public int Id { get; set; }
-
-        public string? Login { get; set; }
-
-        public string? Senha { get; set; }
-
-        public int PapelId { get; set; }
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
+        public string? Nome { get; set; }
+        public string? Email { get; set; }
     }
 }

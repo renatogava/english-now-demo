@@ -31,9 +31,9 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            var loginResult = await _usuarioService.LoginAsync(model.Usuario!, model.Senha!);
+            var loginResult = _usuarioService.ValidarLogin(model.Usuario!, model.Senha!);
 
-            if (!loginResult.LoginEfetuado)
+            if (!loginResult.Sucesso)
             {
                 ModelState.AddModelError(string.Empty, loginResult.MensagemErro!);
 

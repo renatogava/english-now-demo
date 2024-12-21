@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishNowDemo.Repositories.Entities
+namespace EnglishNowDemo.Services.Models.Professor
 {
-    public class Usuario
+    public class EditarProfessorRequest
     {
         public int Id { get; set; }
 
@@ -14,6 +14,11 @@ namespace EnglishNowDemo.Repositories.Entities
 
         public string? Senha { get; set; }
 
-        public int PapelId { get; set; }
+        public string? Nome { get; set; }
+
+        public string? Email { get; set; }
+
+        public int UsuarioId { get; set; }
+
     }
 }

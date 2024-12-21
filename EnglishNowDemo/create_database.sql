@@ -20,15 +20,14 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`usuario` (
   `usuario_id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NOT NULL,
+  `login` VARCHAR(100) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
-  `papel_id` INT(45) NOT NULL,
+  `papel_id` INT NOT NULL,
   PRIMARY KEY (`usuario_id`),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE,
   CONSTRAINT `usuario_papel`
     FOREIGN KEY (`papel_id`)
-    REFERENCES `english_now_demo`.`papel` (`papel_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `english_now_demo`.`papel` (`papel_id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno` (
@@ -37,11 +36,10 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno` (
   `email` VARCHAR(45) NOT NULL,
   `usuario_id` INT NOT NULL,
   PRIMARY KEY (`aluno_id`),
+  UNIQUE INDEX `usuario_id_UNIQUE` (`usuario_id` ASC) VISIBLE,
   CONSTRAINT `aluno_usuario`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `english_now_demo`.`usuario` (`usuario_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `english_now_demo`.`usuario` (`usuario_id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`professor` (
@@ -50,12 +48,10 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`professor` (
   `email` VARCHAR(45) NOT NULL,
   `usuario_id` INT NOT NULL,
   PRIMARY KEY (`professor_id`),
-  INDEX `professor_usuario_idx` (`usuario_id` ASC) VISIBLE,
+  UNIQUE INDEX `usuario_id_UNIQUE` (`usuario_id` ASC) VISIBLE,
   CONSTRAINT `professor_usuario`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `english_now_demo`.`usuario` (`usuario_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `english_now_demo`.`usuario` (`usuario_id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`turma` (
@@ -83,40 +79,29 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`turma` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma` (
-  `aluno_turma_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
+  `boletim_id` INT NOT NULL AUTO_INCREMENT,
   `aluno_id` INT NOT NULL,
   `turma_id` INT NOT NULL,
-  PRIMARY KEY (`aluno_turma_id`),
-  CONSTRAINT `aluno_alunoturma`
-    FOREIGN KEY (`aluno_id`)
-    REFERENCES `english_now_demo`.`aluno` (`aluno_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `turma_alunoturma`
+  `nota_bim1_escrita` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim1_leitura` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim1_conversacao` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim1_final` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim2_escrita` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim2_leitura` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim2_conversacao` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_bim2_final` DECIMAL(4,2) NULL DEFAULT NULL,
+  `nota_final_semestre` DECIMAL(4,2) NULL DEFAULT NULL,
+  `faltas_semestre` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`boletim_id`),
+  CONSTRAINT `boletim_turma`
     FOREIGN KEY (`turma_id`)
     REFERENCES `english_now_demo`.`turma` (`turma_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `english_now_demo`.`boletim` (
-  `boletim_id` INT NOT NULL AUTO_INCREMENT,
-  `aluno_turma_id` INT NOT NULL,
-  `nota_bim1_escrita` DECIMAL(4,2) NULL,
-  `nota_bim1_leitura` DECIMAL(4,2) NULL,
-  `nota_bim1_conversacao` DECIMAL(4,2) NULL,
-  `nota_bim1_final` DECIMAL(4,2) NULL,
-  `nota_bim2_escrita` DECIMAL(4,2) NULL,
-  `nota_bim2_leitura` DECIMAL(4,2) NULL,
-  `nota_bim2_conversacao` DECIMAL(4,2) NULL,
-  `nota_bim2_final` DECIMAL(4,2) NULL,
-  `nota_final_semestre` DECIMAL(4,2) NULL,
-  `faltas_semestre` INT NULL,
-  PRIMARY KEY (`boletim_id`),
-  CONSTRAINT `boletim_alunoturma`
-    FOREIGN KEY (`aluno_turma_id`)
-    REFERENCES `english_now_demo`.`aluno_turma` (`aluno_turma_id`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `boletim_aluno`
+    FOREIGN KEY (`aluno_id`)
+    REFERENCES `english_now_demo`.`aluno` (`aluno_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -184,3 +169,14 @@ INSERT INTO `english_now_demo`.`periodo`
 VALUES
 (3,
 'Segunda e Quarta 15h');
+
+INSERT INTO `english_now_demo`.`usuario`
+(`usuario_id`,
+`login`,
+`senha`,
+`papel_id`)
+VALUES
+(1,
+'admin',
+'123',
+1);

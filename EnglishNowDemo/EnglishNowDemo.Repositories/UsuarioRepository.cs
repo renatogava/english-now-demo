@@ -10,42 +10,83 @@ namespace EnglishNowDemo.Repositories
 {
     public interface IUsuarioRepository
     {
-        Task<Usuario?> ObterPorNomeAsync(string nome);
+        Usuario? ObterPorLogin(string login);
+
+        int? Inserir(Usuario usuario);
+
+        int? Atualizar(Usuario usuario);
     }
 
     public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {
         public UsuarioRepository(string connectionString) : base(connectionString) { }
 
-        public async Task<Usuario?> ObterPorNomeAsync(string nome)
+        public Usuario? ObterPorLogin(string login)
         {
             Usuario? usuario = null;
 
             using (var cnn = new MySqlConnection(ConnectionString))
             {
-                string query = $"select usuario_id, nome, senha from usuario where nome = '{nome}'";
+                string query = $"select usuario_id, login, senha from usuario where login = '{login}'";
 
                 var cmd = new MySqlCommand(query, cnn);
 
-                await cnn.OpenAsync();
+                cnn.Open();
 
-                using (var reader = await cmd.ExecuteReaderAsync())
+                using (var reader = cmd.ExecuteReader())
                 {
-                    if (await reader.ReadAsync())
+                    if (reader.Read())
                     {
                         usuario = new Usuario
                         {
                             Id = reader.GetInt32(0),
-                            Nome = reader.GetString(1),
+                            Login = reader.GetString(1),
                             Senha = reader.GetString(2),
                         };
                     }
                 }
-
-                await cnn.CloseAsync();
             }
 
             return usuario;
+        }
+
+        public int? Inserir(Usuario usuario)
+        {
+            int? usuarioId = null;
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"insert into usuario (login, senha, papel_id) values ('{usuario.Login}', '{usuario.Senha}', {usuario.PapelId});
+                                    select LAST_INSERT_ID()";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                usuarioId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                usuario.Id = usuarioId.Value;
+            }
+
+            return usuarioId;
+        }
+
+        public int? Atualizar(Usuario usuario)
+        {
+            int? affectedRows = null;
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"update usuario set login = '{usuario.Login}', senha = '{usuario.Senha}' where usuario_id = {usuario.Id}";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                affectedRows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+
+            return affectedRows;
         }
     }
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace EnglishNowDemo.Services.Models
 {
-    public class LoginResult
+    public class BaseResult
     {
-        public bool LoginEfetuado => string.IsNullOrEmpty(MensagemErro);
+        public bool Sucesso { get; set; } = false;
 
         public string? MensagemErro { get; set; }
+
     }
 }

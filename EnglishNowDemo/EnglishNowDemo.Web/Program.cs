@@ -19,8 +19,10 @@ builder.Services
 var connectionString = builder.Configuration.GetConnectionString("EnglishNowConnectionString");
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IProfessorService, ProfessorService>();
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(c => new UsuarioRepository(connectionString!));
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>(c => new ProfessorRepository(connectionString!));
 
 var app = builder.Build();
 

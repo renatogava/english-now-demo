@@ -1,5 +1,5 @@
 ﻿using EnglishNowDemo.Repositories;
-using EnglishNowDemo.Services.Models;
+using EnglishNowDemo.Services.Models.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace EnglishNowDemo.Services
 {
     public interface IUsuarioService
     {
-        Task<LoginResult> LoginAsync(string usuario, string senha);
+        ValidarLoginResult ValidarLogin(string login, string senha);
     }
 
     public class UsuarioService : IUsuarioService
@@ -22,11 +22,11 @@ namespace EnglishNowDemo.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<LoginResult> LoginAsync(string nome, string senha)
+        public ValidarLoginResult ValidarLogin(string login, string senha)
         {
-            var result = new LoginResult();
+            var result = new ValidarLoginResult();
 
-            if (string.IsNullOrEmpty(nome))
+            if (string.IsNullOrEmpty(login))
             {
                 result.MensagemErro = "Usuário vazio";
 
@@ -40,7 +40,7 @@ namespace EnglishNowDemo.Services
                 return result;
             }
 
-            var usuario = await _usuarioRepository.ObterPorNomeAsync(nome);
+            var usuario = _usuarioRepository.ObterPorLogin(login);
 
             if (usuario == null)
             {
@@ -57,6 +57,7 @@ namespace EnglishNowDemo.Services
             }
 
             //se chegou até aqui, é pq funcionou
+            result.Sucesso = true;
 
             return result;
         }
