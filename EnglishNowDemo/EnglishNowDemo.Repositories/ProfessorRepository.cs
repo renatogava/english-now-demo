@@ -9,6 +9,8 @@ namespace EnglishNowDemo.Repositories
 
         int? Atualizar(Professor professor);
 
+        int? Apagar(int id);
+
         IList<Professor> Listar();
 
         Professor? ObterPorId(int id);
@@ -44,6 +46,24 @@ namespace EnglishNowDemo.Repositories
             using (var cnn = new MySqlConnection(ConnectionString))
             {
                 string query = @$"update professor set nome = '{professor.Nome}', email = '{professor.Email}' where professor_id = {professor.Id}";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                affectedRows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+
+            return affectedRows;
+        }
+
+        public int? Apagar(int id)
+        {
+            int? affectedRows = null;
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"delete from professor where professor_id = {id}";
 
                 var cmd = new MySqlCommand(query, cnn);
 

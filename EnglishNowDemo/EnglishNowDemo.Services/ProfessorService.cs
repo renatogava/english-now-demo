@@ -2,6 +2,7 @@
 using EnglishNowDemo.Repositories.Entities;
 using EnglishNowDemo.Services.Mappings;
 using EnglishNowDemo.Services.Models.Professor;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace EnglishNowDemo.Services
 {
@@ -10,6 +11,8 @@ namespace EnglishNowDemo.Services
         CriarProfessorResult Criar(CriarProfessorRequest request);
 
         EditarProfessorResult Editar(EditarProfessorRequest request);
+
+        ExcluirProfessorResult Excluir(int id);
 
         ProfessorResult ObterPorId(int id);
 
@@ -99,6 +102,23 @@ namespace EnglishNowDemo.Services
             if (!affectedRows.HasValue || affectedRows == 0)
             {
                 result.MensagemErro = "Usuário não foi atualizado";
+                return result;
+            }
+
+            result.Sucesso = true;
+
+            return result;
+        }
+
+        public ExcluirProfessorResult Excluir(int id)
+        {
+            var result = new ExcluirProfessorResult();
+
+            var affectedRows = _professorRepository.Apagar(id);
+
+            if (!affectedRows.HasValue || affectedRows == 0)
+            {
+                result.MensagemErro = "Professor não foi excluído";
                 return result;
             }
 

@@ -80,6 +80,21 @@ namespace EnglishNowDemo.Web.Controllers
             return RedirectToAction("Listar", "Professor");
         }
 
+        [HttpPost]
+        [Route("excluir/{id}")]
+        public IActionResult Excluir(EditarViewModel model)
+        {
+            var result = _professorService.Excluir(model.Id);
+
+            if (!result.Sucesso)
+            {
+                ModelState.AddModelError(string.Empty, result.MensagemErro!);
+
+                return View(model);
+            }
+
+            return RedirectToAction("Listar", "Professor");
+        }
 
         [Route("listar")]
         public IActionResult Listar()

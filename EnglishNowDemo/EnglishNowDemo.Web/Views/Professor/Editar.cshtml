@@ -28,6 +28,8 @@
     </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Salvar</button>
+
+        <button type="submit" class="btn btn-danger" formaction='@Url.Action("Excluir", "Professor", new {id = Model.Id})'>Excluir</button>
     </div>
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
