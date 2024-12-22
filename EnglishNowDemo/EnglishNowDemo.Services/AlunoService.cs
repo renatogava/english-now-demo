@@ -1,36 +1,36 @@
 ﻿using EnglishNowDemo.Repositories;
 using EnglishNowDemo.Services.Mappings;
-using EnglishNowDemo.Services.Models.Professor;
+using EnglishNowDemo.Services.Models.Aluno;
 
 namespace EnglishNowDemo.Services
 {
-    public interface IProfessorService
+    public interface IAlunoService
     {
-        CriarProfessorResult Criar(CriarProfessorRequest request);
+        CriarAlunoResult Criar(CriarAlunoRequest request);
 
-        EditarProfessorResult Editar(EditarProfessorRequest request);
+        EditarAlunoResult Editar(EditarAlunoRequest request);
 
-        ExcluirProfessorResult Excluir(int id);
+        ExcluirAlunoResult Excluir(int id);
 
-        ProfessorResult ObterPorId(int id);
+        AlunoResult ObterPorId(int id);
 
-        IList<ProfessorResult> Listar();
+        IList<AlunoResult> Listar();
     }
 
-    public class ProfessorService : IProfessorService
+    public class AlunoService : IAlunoService
     {
-        private readonly IProfessorRepository _professorRepository;
+        private readonly IAlunoRepository _alunoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
 
-        public ProfessorService(IProfessorRepository professorRepository, IUsuarioRepository usuarioRepository)
+        public AlunoService(IAlunoRepository alunoRepository, IUsuarioRepository usuarioRepository)
         {
-            _professorRepository = professorRepository;
+            _alunoRepository = alunoRepository;
             _usuarioRepository = usuarioRepository;
         }
 
-        public CriarProfessorResult Criar(CriarProfessorRequest request)
+        public CriarAlunoResult Criar(CriarAlunoRequest request)
         {
-            var result = new CriarProfessorResult();
+            var result = new CriarAlunoResult();
 
             if (string.IsNullOrEmpty(request.Login))
             {
@@ -56,18 +56,18 @@ namespace EnglishNowDemo.Services
                 return result;
             }
 
-            var professor = request.MapToProfessor(usuarioId.Value);
+            var aluno = request.MapToAluno(usuarioId.Value);
 
-            _professorRepository.Inserir(professor);
+            _alunoRepository.Inserir(aluno);
 
             result.Sucesso = true;
 
             return result;
         }
 
-        public EditarProfessorResult Editar(EditarProfessorRequest request)
+        public EditarAlunoResult Editar(EditarAlunoRequest request)
         {
-            var result = new EditarProfessorResult();
+            var result = new EditarAlunoResult();
 
             if (string.IsNullOrEmpty(request.Login))
             {
@@ -83,13 +83,13 @@ namespace EnglishNowDemo.Services
                 return result;
             }
 
-            var professor = request.MapToProfessor();
+            var aluno = request.MapToAluno();
 
-            var affectedRows = _professorRepository.Atualizar(professor);
+            var affectedRows = _alunoRepository.Atualizar(aluno);
 
             if (!affectedRows.HasValue || affectedRows == 0)
             {
-                result.MensagemErro = "Professor não foi atualizado";
+                result.MensagemErro = "Aluno não foi atualizado";
                 return result;
             }
 
@@ -108,15 +108,15 @@ namespace EnglishNowDemo.Services
             return result;
         }
 
-        public ExcluirProfessorResult Excluir(int id)
+        public ExcluirAlunoResult Excluir(int id)
         {
-            var result = new ExcluirProfessorResult();
+            var result = new ExcluirAlunoResult();
 
-            var affectedRows = _professorRepository.Apagar(id);
+            var affectedRows = _alunoRepository.Apagar(id);
 
             if (!affectedRows.HasValue || affectedRows == 0)
             {
-                result.MensagemErro = "Professor não foi excluído";
+                result.MensagemErro = "Aluno não foi excluído";
                 return result;
             }
 
@@ -125,28 +125,28 @@ namespace EnglishNowDemo.Services
             return result;
         }
 
-        public IList<ProfessorResult> Listar()
+        public IList<AlunoResult> Listar()
         {
-            var professores = _professorRepository.Listar();
+            var alunos = _alunoRepository.Listar();
 
-            var result = professores.Select(c => c.MapToProfessorResult()).ToList();
+            var result = alunos.Select(c => c.MapToAlunoResult()).ToList();
 
             return result;
         }
 
-        public ProfessorResult ObterPorId(int id)
+        public AlunoResult ObterPorId(int id)
         {
-            var result = new ProfessorResult();
+            var result = new AlunoResult();
 
-            var professor = _professorRepository.ObterPorId(id);
+            var aluno = _alunoRepository.ObterPorId(id);
 
-            if (professor == null)
+            if (aluno == null)
             {
-                result.MensagemErro = "Professor não localizado";
+                result.MensagemErro = "Aluno não localizado";
                 return result;
             }
 
-            result = professor.MapToProfessorResult();
+            result = aluno.MapToAlunoResult();
 
             return result;
         }

@@ -1,20 +1,20 @@
 ﻿using EnglishNowDemo.Services;
 using EnglishNowDemo.Web.Mappings;
-using EnglishNowDemo.Web.ViewModels.Professor;
+using EnglishNowDemo.Web.ViewModels.Aluno;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnglishNowDemo.Web.Controllers
 {
-    [Route("professor")]
+    [Route("aluno")]
     [Authorize]
-    public class ProfessorController : Controller
+    public class AlunoController : Controller
     {
-        private readonly IProfessorService _professorService;
+        private readonly IAlunoService _alunoService;
 
-        public ProfessorController(IProfessorService professorService) 
+        public AlunoController(IAlunoService alunoService) 
         {
-            _professorService = professorService;
+            _alunoService = alunoService;
         }
 
         [Route("criar")]
@@ -32,9 +32,9 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            var request = model.MapToCriarProfessorRequest();
+            var request = model.MapToCriarAlunoRequest();
 
-            var result = _professorService.Criar(request);
+            var result = _alunoService.Criar(request);
 
             if (!result.Sucesso)
             {
@@ -43,15 +43,15 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Listar", "Professor");
+            return RedirectToAction("Listar", "Aluno");
         }
 
         [Route("editar/{id}")]
         public IActionResult Editar(int id)
         {
-            var professor = _professorService.ObterPorId(id);
+            var aluno = _alunoService.ObterPorId(id);
 
-            var model = professor.MapToEditarViewModel();
+            var model = aluno.MapToEditarViewModel();
 
             return View(model);
         }
@@ -65,9 +65,9 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            var request = model.MapToEditarProfessorRequest();
+            var request = model.MapToEditarAlunoRequest();
 
-            var result = _professorService.Editar(request);
+            var result = _alunoService.Editar(request);
 
             if (!result.Sucesso)
             {
@@ -76,14 +76,14 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }   
 
-            return RedirectToAction("Listar", "Professor");
+            return RedirectToAction("Listar", "Aluno");
         }
 
         [HttpPost]
         [Route("excluir/{id}")]
         public IActionResult Excluir(EditarViewModel model)
         {
-            var result = _professorService.Excluir(model.Id);
+            var result = _alunoService.Excluir(model.Id);
 
             if (!result.Sucesso)
             {
@@ -92,17 +92,17 @@ namespace EnglishNowDemo.Web.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Listar", "Professor");
+            return RedirectToAction("Listar", "Aluno");
         }
 
         [Route("listar")]
         public IActionResult Listar()
         {
-            var professores = _professorService.Listar();
+            var alunos = _alunoService.Listar();
 
-            var professoresViewModel = professores.Select(c => c.MapToListarViewModel()).ToList();
+            var alunosViewModel = alunos.Select(c => c.MapToListarViewModel()).ToList();
 
-            return View(professoresViewModel);
+            return View(alunosViewModel);
         }
     }
 }
