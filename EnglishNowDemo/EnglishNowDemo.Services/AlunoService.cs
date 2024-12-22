@@ -112,11 +112,27 @@ namespace EnglishNowDemo.Services
         {
             var result = new ExcluirAlunoResult();
 
+            var aluno = _alunoRepository.ObterPorId(id);
+
+            if (aluno == null)
+            {
+                result.MensagemErro = "Aluno não existe";
+                return result;
+            }
+
             var affectedRows = _alunoRepository.Apagar(id);
 
             if (!affectedRows.HasValue || affectedRows == 0)
             {
                 result.MensagemErro = "Aluno não foi excluído";
+                return result;
+            }
+
+            affectedRows = _usuarioRepository.Apagar(aluno.UsuarioId);
+
+            if (!affectedRows.HasValue || affectedRows == 0)
+            {
+                result.MensagemErro = "Usuário não foi excluído";
                 return result;
             }
 

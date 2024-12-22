@@ -64,19 +64,13 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`turma` (
   PRIMARY KEY (`turma_id`),
   CONSTRAINT `turma_professor`
     FOREIGN KEY (`professor_id`)
-    REFERENCES `english_now_demo`.`professor` (`professor_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `english_now_demo`.`professor` (`professor_id`),
   CONSTRAINT `turma_periodo`
     FOREIGN KEY (`periodo_id`)
-    REFERENCES `english_now_demo`.`periodo` (`periodo_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `english_now_demo`.`periodo` (`periodo_id`),
   CONSTRAINT `turma_nivel`
     FOREIGN KEY (`nivel_id`)
-    REFERENCES `english_now_demo`.`nivel` (`nivel_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `english_now_demo`.`nivel` (`nivel_id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
@@ -96,14 +90,10 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
   PRIMARY KEY (`boletim_id`),
   CONSTRAINT `boletim_turma`
     FOREIGN KEY (`turma_id`)
-    REFERENCES `english_now_demo`.`turma` (`turma_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `english_now_demo`.`turma` (`turma_id`),
   CONSTRAINT `boletim_aluno`
     FOREIGN KEY (`aluno_id`)
-    REFERENCES `english_now_demo`.`aluno` (`aluno_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `english_now_demo`.`aluno` (`aluno_id`))
 ENGINE = InnoDB;
 
 INSERT INTO `english_now_demo`.`papel`
@@ -161,7 +151,6 @@ INSERT INTO `english_now_demo`.`periodo`
 VALUES
 (2,
 'Sábado 9h');
-
 
 INSERT INTO `english_now_demo`.`periodo`
 (`periodo_id`,

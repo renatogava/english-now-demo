@@ -14,6 +14,8 @@ namespace EnglishNowDemo.Repositories
 
         int? Inserir(Usuario usuario);
 
+        int? Apagar(int id);
+
         int? Atualizar(Usuario usuario);
     }
 
@@ -69,6 +71,24 @@ namespace EnglishNowDemo.Repositories
             }
 
             return usuarioId;
+        }
+
+        public int? Apagar(int id)
+        {
+            int? affectedRows = null;
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"delete from usuario where usuario_id = {id}";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                affectedRows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+
+            return affectedRows;
         }
 
         public int? Atualizar(Usuario usuario)

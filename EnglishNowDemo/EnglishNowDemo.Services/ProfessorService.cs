@@ -1,5 +1,6 @@
 ﻿using EnglishNowDemo.Repositories;
 using EnglishNowDemo.Services.Mappings;
+using EnglishNowDemo.Services.Models.Aluno;
 using EnglishNowDemo.Services.Models.Professor;
 
 namespace EnglishNowDemo.Services
@@ -112,11 +113,27 @@ namespace EnglishNowDemo.Services
         {
             var result = new ExcluirProfessorResult();
 
+            var professor = _professorRepository.ObterPorId(id);
+
+            if (professor == null)
+            {
+                result.MensagemErro = "Professor não existe";
+                return result;
+            }
+
             var affectedRows = _professorRepository.Apagar(id);
 
             if (!affectedRows.HasValue || affectedRows == 0)
             {
                 result.MensagemErro = "Professor não foi excluído";
+                return result;
+            }
+
+            affectedRows = _usuarioRepository.Apagar(professor.UsuarioId);
+
+            if (!affectedRows.HasValue || affectedRows == 0)
+            {
+                result.MensagemErro = "Usuário não foi excluído";
                 return result;
             }
 
