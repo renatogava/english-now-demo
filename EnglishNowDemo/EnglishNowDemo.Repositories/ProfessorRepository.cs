@@ -122,8 +122,7 @@ namespace EnglishNowDemo.Repositories
             {
                 string query = @$"select p.professor_id, p.nome, p.email, p.usuario_id, u.login, u.senha, u.papel_id 
                                     from professor p inner join usuario u on p.usuario_id = u.usuario_id
-                                    where p.professor_id = {id}
-                                    order by p.nome";
+                                    where p.professor_id = {id}";
 
                 var cmd = new MySqlCommand(query, cnn);
 

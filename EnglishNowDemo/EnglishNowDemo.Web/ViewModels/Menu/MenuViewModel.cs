@@ -9,6 +9,7 @@
     {
         Home,
         Professor,
-        Aluno
+        Aluno,
+        Turma
     }
 }
