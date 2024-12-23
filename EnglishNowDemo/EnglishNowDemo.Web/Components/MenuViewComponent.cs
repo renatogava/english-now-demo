@@ -9,7 +9,7 @@ namespace EnglishNowDemo.Web.Components
         {
             var model = new MenuViewModel
             {
-                PaginaAtual = ViewData["Menu"] != null ? (Menu)ViewData["Menu"] : Menu.Home
+                Ativo = ViewData["Menu"] != null ? (Menu)ViewData["Menu"] : Menu.Home
             };
 
             return View(model);

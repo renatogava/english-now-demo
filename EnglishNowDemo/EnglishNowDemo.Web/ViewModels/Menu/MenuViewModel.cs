@@ -2,7 +2,7 @@
 {
     public class MenuViewModel
     {
-        public Menu PaginaAtual { get; set; }
+        public Menu Ativo { get; set; }
     }
 
     public enum Menu

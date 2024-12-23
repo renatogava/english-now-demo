@@ -1,17 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS `english_now_demo` DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE IF NOT EXISTS `english_now_demo`.`periodo` (
-  `periodo_id` INT NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`periodo_id`))
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `english_now_demo`.`nivel` (
-  `nivel_id` INT NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`nivel_id`))
-ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`papel` (
   `papel_id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(50) NOT NULL,
@@ -56,21 +44,15 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`turma` (
   `turma_id` INT NOT NULL AUTO_INCREMENT,
+  `professor_id` INT NOT NULL,
   `semestre` INT NOT NULL,
   `ano` INT NOT NULL,
-  `nivel_id` INT NOT NULL,
-  `periodo_id` INT NOT NULL,
-  `professor_id` INT NOT NULL,
+  `nivel` VARCHAR(100) NOT NULL,
+  `periodo` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`turma_id`),
   CONSTRAINT `turma_professor`
     FOREIGN KEY (`professor_id`)
-    REFERENCES `english_now_demo`.`professor` (`professor_id`),
-  CONSTRAINT `turma_periodo`
-    FOREIGN KEY (`periodo_id`)
-    REFERENCES `english_now_demo`.`periodo` (`periodo_id`),
-  CONSTRAINT `turma_nivel`
-    FOREIGN KEY (`nivel_id`)
-    REFERENCES `english_now_demo`.`nivel` (`nivel_id`))
+    REFERENCES `english_now_demo`.`professor` (`professor_id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
@@ -116,48 +98,6 @@ INSERT INTO `english_now_demo`.`papel`
 VALUES
 (3,
 'Aluno');
-
-INSERT INTO `english_now_demo`.`nivel`
-(`nivel_id`,
-`descricao`)
-VALUES
-(1,
-'Básico');
-
-INSERT INTO `english_now_demo`.`nivel`
-(`nivel_id`,
-`descricao`)
-VALUES
-(2,
-'Intermediário');
-
-INSERT INTO `english_now_demo`.`nivel`
-(`nivel_id`,
-`descricao`)
-VALUES
-(3,
-'Avançado');
-
-INSERT INTO `english_now_demo`.`periodo`
-(`periodo_id`,
-`descricao`)
-VALUES
-(1,
-'Terça e Quinta 19h');
-
-INSERT INTO `english_now_demo`.`periodo`
-(`periodo_id`,
-`descricao`)
-VALUES
-(2,
-'Sábado 9h');
-
-INSERT INTO `english_now_demo`.`periodo`
-(`periodo_id`,
-`descricao`)
-VALUES
-(3,
-'Segunda e Quarta 15h');
 
 INSERT INTO `english_now_demo`.`usuario`
 (`usuario_id`,

@@ -12,13 +12,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link @(Model.PaginaAtual == Menu.Home ? "active" : string.Empty)" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link @(Model.Ativo == Menu.Home ? "active" : string.Empty)" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @(Model.PaginaAtual == Menu.Aluno ? "active" : string.Empty)" asp-controller="Aluno" asp-action="Listar">Alunos</a>
+                    <a class="nav-link @(Model.Ativo == Menu.Aluno ? "active" : string.Empty)" asp-controller="Aluno" asp-action="Listar">Alunos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @(Model.PaginaAtual == Menu.Professor ? "active" : string.Empty)" asp-controller="Professor" asp-action="Listar">Professores</a>
+                    <a class="nav-link @(Model.Ativo == Menu.Professor ? "active" : string.Empty)" asp-controller="Professor" asp-action="Listar">Professores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Turmas</a>
