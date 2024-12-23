@@ -1,6 +1,9 @@
-﻿@model IList<EnglishNowDemo.Web.ViewModels.Professor.ListarViewModel>
+﻿@using EnglishNowDemo.Web.ViewModels.Menu
+@model IList<EnglishNowDemo.Web.ViewModels.Professor.ListarViewModel>
 @{
     ViewData["Title"] = "Listar Professores";
+
+    ViewData["Menu"] = Menu.Professor;
 }
 
 <h1 class="py-4">Lista de Professores</h1>

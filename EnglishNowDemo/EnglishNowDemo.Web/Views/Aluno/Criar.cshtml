@@ -1,6 +1,9 @@
-﻿@model EnglishNowDemo.Web.ViewModels.Aluno.CriarViewModel
+﻿@using EnglishNowDemo.Web.ViewModels.Menu
+@model EnglishNowDemo.Web.ViewModels.Aluno.CriarViewModel
 @{
     ViewData["Title"] = "Novo Aluno";
+
+    ViewData["Menu"] = Menu.Aluno;
 }
 
 <h1 class="py-4">Novo Aluno</h1>

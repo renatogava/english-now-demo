@@ -1,0 +1,32 @@
+﻿@using EnglishNowDemo.Web.ViewModels.Menu
+@model EnglishNowDemo.Web.ViewModels.Menu.MenuViewModel
+@{
+}
+
+<nav class="navbar navbar-expand-md fixed-top bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">EnglishNow</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link @(Model.PaginaAtual == Menu.Home ? "active" : string.Empty)" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(Model.PaginaAtual == Menu.Aluno ? "active" : string.Empty)" asp-controller="Aluno" asp-action="Listar">Alunos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(Model.PaginaAtual == Menu.Professor ? "active" : string.Empty)" asp-controller="Professor" asp-action="Listar">Professores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Turmas</a>
+                </li>
+            </ul>
+            <form class="d-flex" asp-controller="Usuario" asp-action="Logout">
+                <button class="btn btn-outline-light" type="submit">Sair</button>
+            </form>
+        </div>
+    </div>
+</nav>
