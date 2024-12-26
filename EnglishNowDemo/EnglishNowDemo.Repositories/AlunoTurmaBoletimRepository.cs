@@ -12,6 +12,8 @@ namespace EnglishNowDemo.Repositories
     {
         int? Inserir(AlunoTurmaBoletim alunoTurmaBoletim);
 
+        int? Apagar(int turmaId, int alunoId);
+
         AlunoTurmaBoletim? ObterPorAlunoTurma(int alunoId, int turmaId);
     }
 
@@ -128,5 +130,24 @@ namespace EnglishNowDemo.Repositories
 
             return result;
         }
+
+        public int? Apagar(int turmaId, int alunoId)
+        {
+            int? affectedRows = null;
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"delete from aluno_turma_boletim where turma_id = {turmaId} and aluno_id = {alunoId}";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                affectedRows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+
+            return affectedRows;
+        }
+
     }
 }

@@ -73,7 +73,11 @@
                                 <td>@aluno.Nome</td>
                                 <td>@aluno.Email</td>
                                 <td>@aluno.Login</td>
-                                <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Excluir</a></td>
+                                <td>
+                                    <form asp-controller="Turma" asp-action="DesassociarAluno" asp-route-turmaId="@Model.Id" asp-route-alunoId="@aluno.Id">
+                                        <button type="submit" class="btn p-0 link-danger">Excluir</button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -84,7 +88,6 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarAlunos">
             Adicionar Alunos
         </button>
-
     </div>
 </div>
 
@@ -92,7 +95,7 @@
 <div class="modal fade" id="adicionarAlunos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="adicionarAlunos" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-            <form asp-controller="Turma" asp-action="SelecionarAlunos" asp-route-turmaId="@Model.Id">
+            <form asp-controller="Turma" asp-action="AssociarAlunos" asp-route-turmaId="@Model.Id">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Alunos</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>

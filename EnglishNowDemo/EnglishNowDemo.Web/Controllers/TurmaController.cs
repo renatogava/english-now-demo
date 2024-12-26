@@ -109,8 +109,8 @@ namespace EnglishNowDemo.Web.Controllers
         }
 
         [HttpPost]
-        [Route("selecionarAlunos")]
-        public IActionResult SelecionarAlunos(int turmaId)
+        [Route("associarAlunos")]
+        public IActionResult AssociarAlunos(int turmaId)
         {
             var alunosSelecioados = new List<int>();
 
@@ -125,6 +125,15 @@ namespace EnglishNowDemo.Web.Controllers
             }
 
             _turmaService.AssociarAlunos(turmaId, alunosSelecioados);
+
+            return RedirectToAction("Editar", "Turma", new { id = turmaId });
+        }
+
+        [HttpPost]
+        [Route("desassociarAluno")]
+        public IActionResult DesassociarAluno(int turmaId, int alunoId)
+        {
+            _turmaService.DesassociarAluno(turmaId, alunoId);
 
             return RedirectToAction("Editar", "Turma", new { id = turmaId });
         }

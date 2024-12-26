@@ -12,6 +12,8 @@ namespace EnglishNowDemo.Services
 
         AssociarAlunosResult AssociarAlunos(int turmaId, List<int> alunoIds);
 
+        DesassociarAlunoResult DesassociarAluno(int turmaId, int alunoId);
+
         ExcluirTurmaResult Excluir(int id);
 
         TurmaResult ObterPorId(int id);
@@ -132,6 +134,17 @@ namespace EnglishNowDemo.Services
             }
 
             result = turma.MapToTurmaResult();
+
+            result.Sucesso = true;
+
+            return result;
+        }
+
+        public DesassociarAlunoResult DesassociarAluno(int turmaId, int alunoId)
+        {
+            var result = new DesassociarAlunoResult();
+
+            var alunoTurmaBoletim = _alunoTurmaBoletimRepository.Apagar(turmaId, alunoId);
 
             result.Sucesso = true;
 
