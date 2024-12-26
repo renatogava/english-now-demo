@@ -8,6 +8,7 @@
 
 <h1 class="py-4">Editar Turma</h1>
 
+<h2 class="h3">Informações da Turma</h2>
 <form class="row g-3 needs-validation" asp-controller="Turma" asp-action="Editar" novalidate>
 
     <input type="hidden" asp-for="Id">
@@ -43,6 +44,101 @@
 
 </form>
 
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title h3">Alunos da Turma</h2>
+
+        @if (Model.AlunosTurma == null || Model.AlunosTurma.Count == 0)
+        {
+            <p class="card-text">Nenhum aluno encontrado.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Login</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var aluno in Model.AlunosTurma)
+                        {
+                            <tr>
+                                <td>@aluno.Id</td>
+                                <td>@aluno.Nome</td>
+                                <td>@aluno.Email</td>
+                                <td>@aluno.Login</td>
+                                <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Excluir</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adicionarAlunos">
+            Adicionar Alunos
+        </button>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="adicionarAlunos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="adicionarAlunos" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <form asp-controller="Turma" asp-action="SelecionarAlunos" asp-route-turmaId="@Model.Id">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Alunos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    @if (Model.Alunos == null || Model.Alunos.Count == 0)
+                    {
+                        <p class="card-text">Nenhum aluno encontrado.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Login</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var aluno in Model.Alunos)
+                                    {
+                                        <tr>
+                                            <td><input type="checkbox" name="@($"aluno_{aluno.Id}")"></td>
+                                            <td>@aluno.Id</td>
+                                            <td>@aluno.Nome</td>
+                                            <td>@aluno.Email</td>
+                                            <td>@aluno.Login</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script>

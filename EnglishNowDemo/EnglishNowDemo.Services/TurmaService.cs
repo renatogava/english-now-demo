@@ -1,6 +1,5 @@
 ﻿using EnglishNowDemo.Repositories;
 using EnglishNowDemo.Services.Mappings;
-using EnglishNowDemo.Services.Models.Aluno;
 using EnglishNowDemo.Services.Models.Turma;
 
 namespace EnglishNowDemo.Services
@@ -10,6 +9,8 @@ namespace EnglishNowDemo.Services
         CriarTurmaResult Criar(CriarTurmaRequest request);
 
         EditarTurmaResult Editar(EditarTurmaRequest request);
+
+        AssociarAlunosResult AssociarAlunos(int turmaId, List<int> alunoIds);
 
         ExcluirTurmaResult Excluir(int id);
 
@@ -21,10 +22,12 @@ namespace EnglishNowDemo.Services
     public class TurmaService : ITurmaService
     {
         private readonly ITurmaRepository _turmaRepository;
+        private readonly IAlunoTurmaBoletimRepository _alunoTurmaBoletimRepository;
 
-        public TurmaService(ITurmaRepository turmaRepository)
+        public TurmaService(ITurmaRepository turmaRepository, IAlunoTurmaBoletimRepository alunoTurmaBoletimRepository)
         {
             _turmaRepository = turmaRepository;
+            _alunoTurmaBoletimRepository = alunoTurmaBoletimRepository;
         }
 
         public CriarTurmaResult Criar(CriarTurmaRequest request)
@@ -52,6 +55,29 @@ namespace EnglishNowDemo.Services
             {
                 result.MensagemErro = "Turma não foi atualizada";
                 return result;
+            }
+
+            result.Sucesso = true;
+
+            return result;
+        }
+
+        public AssociarAlunosResult AssociarAlunos(int turmaId, List<int> alunoIds)
+        {
+            var result = new AssociarAlunosResult();
+
+            foreach (var alunoId in alunoIds)
+            {
+                var alunoTurmaBoletim = _alunoTurmaBoletimRepository.ObterPorAlunoTurma(alunoId, turmaId);
+
+                if (alunoTurmaBoletim == null)
+                {
+                    _alunoTurmaBoletimRepository.Inserir(new Repositories.Entities.AlunoTurmaBoletim
+                    {
+                        AlunoId = alunoId,
+                        TurmaId = turmaId
+                    });
+                }
             }
 
             result.Sucesso = true;
@@ -106,6 +132,8 @@ namespace EnglishNowDemo.Services
             }
 
             result = turma.MapToTurmaResult();
+
+            result.Sucesso = true;
 
             return result;
         }

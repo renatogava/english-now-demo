@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`turma` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
-  `boletim_id` INT NOT NULL AUTO_INCREMENT,
+  `aluno_turma_boletim_id` INT NOT NULL AUTO_INCREMENT,
   `aluno_id` INT NOT NULL,
   `turma_id` INT NOT NULL,
   `nota_bim1_escrita` DECIMAL(4,2) NULL DEFAULT NULL,

@@ -27,5 +27,20 @@ namespace EnglishNowDemo.Web.ViewModels.Turma
 
         [Required(ErrorMessage = "Período obrigatório")]
         public string? Periodo { get; set; }
+
+        public IList<AlunoTurmaViewModel>? AlunosTurma { get; set; }
+
+        public IList<AlunoTurmaViewModel>? Alunos { get; set; }
+    }
+
+    public class AlunoTurmaViewModel
+    {
+        public int Id { get; set; }
+
+        public string? Nome { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? Login { get; set; }
     }
 }

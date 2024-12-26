@@ -14,6 +14,8 @@ namespace EnglishNowDemo.Repositories
         IList<Aluno> Listar();
 
         Aluno? ObterPorId(int id);
+
+        IList<Aluno> ListarPorTurma(int turmaId);
     }
 
     public class AlunoRepository : BaseRepository, IAlunoRepository
@@ -149,6 +151,50 @@ namespace EnglishNowDemo.Repositories
                                 PapelId = reader.GetInt32(6)
                             }
                         };
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IList<Aluno> ListarPorTurma(int turmaId)
+        {
+            var result = new List<Aluno>();
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"select a.aluno_id, a.nome, a.email, a.usuario_id, u.login, u.senha, u.papel_id from 
+                                    aluno_turma_boletim atb inner join
+                                    aluno a on atb.aluno_id = a.aluno_id inner join 
+                                    usuario u on a.usuario_id = u.usuario_id 
+                                    where atb.turma_id = {turmaId}
+                                    order by a.aluno_id";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var aluno = new Aluno
+                        {
+                            Id = reader.GetInt32(0),
+                            Nome = reader.GetString(1),
+                            Email = reader.GetString(2),
+                            UsuarioId = reader.GetInt32(3),
+                            Usuario = new Usuario
+                            {
+                                Id = reader.GetInt32(3),
+                                Login = reader.GetString(4),
+                                Senha = reader.GetString(5),
+                                PapelId = reader.GetInt32(6)
+                            }
+                        };
+
+                        result.Add(aluno);
                     }
                 }
             }

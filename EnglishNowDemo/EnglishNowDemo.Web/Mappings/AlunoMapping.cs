@@ -46,6 +46,19 @@ namespace EnglishNowDemo.Web.Mappings
             return viewModel;
         }
 
+        public static ViewModels.Turma.AlunoTurmaViewModel MapToAlunoTurmaViewModel(this AlunoResult model)
+        {
+            var viewModel = new ViewModels.Turma.AlunoTurmaViewModel
+            {
+                Id = model.Id,
+                Email = model.Email,
+                Login = model.Login,
+                Nome = model.Nome
+            };
+
+            return viewModel;
+        }
+
         public static EditarViewModel MapToEditarViewModel(this AlunoResult model)
         {
             var viewModel = new EditarViewModel

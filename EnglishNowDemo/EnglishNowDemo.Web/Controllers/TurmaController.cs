@@ -14,11 +14,13 @@ namespace EnglishNowDemo.Web.Controllers
     {
         private readonly ITurmaService _turmaService;
         private readonly IProfessorService _professorService;
+        private readonly IAlunoService _alunoService;
 
-        public TurmaController(ITurmaService turmaService, IProfessorService professorService)
+        public TurmaController(ITurmaService turmaService, IProfessorService professorService, IAlunoService alunoService)
         {
             _turmaService = turmaService;
             _professorService = professorService;
+            _alunoService = alunoService;
         }
 
         [Route("criar")]
@@ -61,10 +63,24 @@ namespace EnglishNowDemo.Web.Controllers
         {
             var turma = _turmaService.ObterPorId(id);
 
+            if (!turma.Sucesso)
+            {
+                return RedirectToAction("Listar", "Turma");
+            }
+
             var model = turma.MapToEditarViewModel();
 
             model.Professores = ListarProfessores(_professorService.Listar());
+
             model.Semestres = ListarSemestres();
+
+            model.AlunosTurma = _alunoService.ListarPorTurma(id)
+                .Select(c => c.MapToAlunoTurmaViewModel())
+                .ToList();
+
+            model.Alunos = _alunoService.Listar()
+                .Select(c => c.MapToAlunoTurmaViewModel())
+                .ToList();
 
             return View(model);
         }
@@ -90,6 +106,27 @@ namespace EnglishNowDemo.Web.Controllers
             }
 
             return RedirectToAction("Listar", "Turma");
+        }
+
+        [HttpPost]
+        [Route("selecionarAlunos")]
+        public IActionResult SelecionarAlunos(int turmaId)
+        {
+            var alunosSelecioados = new List<int>();
+
+            foreach (var formItem in Request.Form)
+            {
+                if (formItem.Key.StartsWith("aluno_"))
+                {
+                    var alunoId = Convert.ToInt32(formItem.Key.Split('_')[1]);
+
+                    alunosSelecioados.Add(alunoId);
+                }
+            }
+
+            _turmaService.AssociarAlunos(turmaId, alunosSelecioados);
+
+            return RedirectToAction("Editar", "Turma", new { id = turmaId });
         }
 
         [HttpPost]
