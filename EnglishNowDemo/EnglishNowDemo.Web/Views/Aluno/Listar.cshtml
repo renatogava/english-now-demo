@@ -1,5 +1,5 @@
 ﻿@using EnglishNowDemo.Web.ViewModels.Menu
-@model IList<EnglishNowDemo.Web.ViewModels.Aluno.ListarViewModel>
+@model EnglishNowDemo.Web.ViewModels.Aluno.ListarViewModel
 @{
     ViewData["Title"] = "Listar Alunos";
 
@@ -8,9 +8,12 @@
 
 <h1 class="py-4">Lista de Alunos</h1>
 
-<div class="d-flex py-2">
-    <a class="btn btn-primary" asp-controller="Aluno" asp-action="Criar">Novo</a>
-</div>
+@if (Model.ExibirBotaoInserirEditar)
+{
+    <div class="d-flex py-2">
+        <a class="btn btn-primary" asp-controller="Aluno" asp-action="Criar">Novo</a>
+    </div>
+}
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -20,18 +23,24 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Login</th>
-                <th scope="col"></th>
+                @if (Model.ExibirBotaoInserirEditar)
+                {
+                    <th scope="col"></th>
+                }
             </tr>
         </thead>
         <tbody>
-            @foreach (var aluno in Model)
+            @foreach (var aluno in Model.Alunos)
             {
                 <tr>
                     <td>@aluno.Id</td>
                     <td>@aluno.Nome</td>
                     <td>@aluno.Email</td>
                     <td>@aluno.Login</td>
-                    <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a></td>
+                    @if (Model.ExibirBotaoInserirEditar)
+                    {
+                        <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a></td>
+                    }
                 </tr>
             }
         </tbody>

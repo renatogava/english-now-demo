@@ -16,8 +16,9 @@ namespace EnglishNowDemo.Services
 
         IList<AlunoResult> Listar();
 
-        IList<AlunoResult> ListarPorTurma(int turmaId);
+        IList<AlunoResult> ListarPorUsuario(int usuarioId);
 
+        IList<AlunoResult> ListarPorTurma(int turmaId);
     }
 
     public class AlunoService : IAlunoService
@@ -156,6 +157,15 @@ namespace EnglishNowDemo.Services
         public IList<AlunoResult> ListarPorTurma(int turmaId)
         {
             var alunos = _alunoRepository.ListarPorTurma(turmaId);
+
+            var result = alunos.Select(c => c.MapToAlunoResult()).ToList();
+
+            return result;
+        }
+
+        public IList<AlunoResult> ListarPorUsuario(int usuarioId)
+        {
+            var alunos = _alunoRepository.ListarPorUsuario(usuarioId);
 
             var result = alunos.Select(c => c.MapToAlunoResult()).ToList();
 

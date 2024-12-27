@@ -42,7 +42,9 @@ namespace EnglishNowDemo.Web.Controllers
 
             var claims = new List<Claim>
             {
-                new (ClaimTypes.NameIdentifier, model.Usuario!)
+                new (ClaimTypes.NameIdentifier, model.Usuario!),
+                new (ClaimTypes.Role, loginResult.Usuario.Papel.ToString()),
+                new ("Id", loginResult.Usuario.Id.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(claims,

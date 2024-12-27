@@ -1,12 +1,8 @@
 ﻿using EnglishNowDemo.Repositories.Entities;
 using EnglishNowDemo.Services.Models.Professor;
 using EnglishNowDemo.Services.Models.Aluno;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EnglishNowDemo.Services.Models.Usuario;
+using EnglishNowDemo.Services.Enums;
 
 namespace EnglishNowDemo.Services.Mappings
 {
@@ -34,6 +30,19 @@ namespace EnglishNowDemo.Services.Mappings
             };
 
             return entity;
+        }
+
+        public static UsuarioResult MapToUsuarioResult(this Usuario entity)
+        {
+            var result = new UsuarioResult
+            {
+                Id = entity.Id,
+                Login = entity.Login,
+                Senha = entity.Senha,
+                Papel = (Papel)entity.PapelId
+            };
+
+            return result;
         }
     }
 }

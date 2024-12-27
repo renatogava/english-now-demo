@@ -1,4 +1,5 @@
 ﻿using EnglishNowDemo.Services;
+using EnglishNowDemo.Services.Models.Aluno;
 using EnglishNowDemo.Web.Mappings;
 using EnglishNowDemo.Web.ViewModels.Aluno;
 using Microsoft.AspNetCore.Authorization;
@@ -98,11 +99,26 @@ namespace EnglishNowDemo.Web.Controllers
         [Route("listar")]
         public IActionResult Listar()
         {
-            var alunos = _alunoService.Listar();
+            IList<AlunoResult>? alunos = null;
 
-            var alunosViewModel = alunos.Select(c => c.MapToListarViewModel()).ToList();
+            if (User.IsInRole("Professor"))
+            {
+                var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
 
-            return View(alunosViewModel);
+                alunos = _alunoService.ListarPorUsuario(usuarioId);
+            }
+            else
+            {
+                alunos = _alunoService.Listar();
+            }
+
+            var viewModel = new ListarViewModel
+            {
+                Alunos = alunos.Select(c => c.MapToListarViewModel()).ToList(),
+                ExibirBotaoInserirEditar = User.IsInRole("Administrador")
+            };
+
+            return View(viewModel);
         }
     }
 }

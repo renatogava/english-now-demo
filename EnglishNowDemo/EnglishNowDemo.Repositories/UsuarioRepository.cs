@@ -29,7 +29,7 @@ namespace EnglishNowDemo.Repositories
 
             using (var cnn = new MySqlConnection(ConnectionString))
             {
-                string query = $"select usuario_id, login, senha from usuario where login = '{login}'";
+                string query = $"select usuario_id, login, senha, papel_id from usuario where login = '{login}'";
 
                 var cmd = new MySqlCommand(query, cnn);
 
@@ -44,6 +44,7 @@ namespace EnglishNowDemo.Repositories
                             Id = reader.GetInt32(0),
                             Login = reader.GetString(1),
                             Senha = reader.GetString(2),
+                            PapelId = reader.GetInt32(3)
                         };
                     }
                 }

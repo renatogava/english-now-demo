@@ -9,7 +9,8 @@ namespace EnglishNowDemo.Web.Components
         {
             var model = new MenuViewModel
             {
-                Ativo = ViewData["Menu"] != null ? (Menu)ViewData["Menu"] : Menu.Home
+                Ativo = ViewData["Menu"] != null ? (Menu)ViewData["Menu"] : Menu.Home,
+                ProfessorVisivel = User.IsInRole("Administrador")
             };
 
             return View(model);

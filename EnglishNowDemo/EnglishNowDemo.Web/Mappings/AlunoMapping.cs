@@ -33,9 +33,9 @@ namespace EnglishNowDemo.Web.Mappings
             return model;
         }
 
-        public static ListarViewModel MapToListarViewModel(this AlunoResult model)
+        public static AlunoViewModel MapToListarViewModel(this AlunoResult model)
         {
-            var viewModel = new ListarViewModel
+            var viewModel = new AlunoViewModel
             {
                 Id = model.Id,
                 Email = model.Email,

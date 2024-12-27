@@ -1,4 +1,5 @@
 ﻿using EnglishNowDemo.Repositories;
+using EnglishNowDemo.Services.Mappings;
 using EnglishNowDemo.Services.Models.Usuario;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,7 @@ namespace EnglishNowDemo.Services
 
             //se chegou até aqui, é pq funcionou
             result.Sucesso = true;
+            result.Usuario = usuario.MapToUsuarioResult();
 
             return result;
         }

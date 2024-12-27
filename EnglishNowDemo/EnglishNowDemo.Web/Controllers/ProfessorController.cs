@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EnglishNowDemo.Web.Controllers
 {
     [Route("professor")]
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class ProfessorController : Controller
     {
         private readonly IProfessorService _professorService;

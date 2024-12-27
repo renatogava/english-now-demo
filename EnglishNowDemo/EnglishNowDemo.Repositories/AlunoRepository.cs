@@ -16,6 +16,8 @@ namespace EnglishNowDemo.Repositories
         Aluno? ObterPorId(int id);
 
         IList<Aluno> ListarPorTurma(int turmaId);
+
+        IList<Aluno> ListarPorUsuario(int usuarioId);
     }
 
     public class AlunoRepository : BaseRepository, IAlunoRepository
@@ -201,5 +203,53 @@ namespace EnglishNowDemo.Repositories
 
             return result;
         }
+
+        public IList<Aluno> ListarPorUsuario(int usuarioId)
+        {
+            var result = new List<Aluno>();
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"select a.aluno_id, a.nome, a.email, a.usuario_id, ua.login, ua.senha, ua.papel_id from 
+                                    aluno_turma_boletim atb inner join
+                                    aluno a on atb.aluno_id = a.aluno_id inner join
+                                    turma t on atb.turma_id = t.turma_id inner join
+                                    professor p on t.professor_id = p.professor_id inner join
+                                    usuario up on p.usuario_id = up.usuario_id inner join
+                                    usuario ua on a.usuario_id = ua.usuario_id 
+                                    where up.usuario_id = {usuarioId}
+                                    order by a.aluno_id";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var aluno = new Aluno
+                        {
+                            Id = reader.GetInt32(0),
+                            Nome = reader.GetString(1),
+                            Email = reader.GetString(2),
+                            UsuarioId = reader.GetInt32(3),
+                            Usuario = new Usuario
+                            {
+                                Id = reader.GetInt32(3),
+                                Login = reader.GetString(4),
+                                Senha = reader.GetString(5),
+                                PapelId = reader.GetInt32(6)
+                            }
+                        };
+
+                        result.Add(aluno);
+                    }
+                }
+            }
+
+            return result;
+        }
+
     }
 }
