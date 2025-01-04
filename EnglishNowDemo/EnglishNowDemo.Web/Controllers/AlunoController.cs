@@ -105,7 +105,7 @@ namespace EnglishNowDemo.Web.Controllers
             {
                 var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
 
-                alunos = _alunoService.ListarPorUsuario(usuarioId);
+                alunos = _alunoService.ListarPorUsuarioProfessor(usuarioId);
             }
             else
             {

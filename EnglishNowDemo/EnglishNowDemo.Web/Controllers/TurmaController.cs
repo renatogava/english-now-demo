@@ -1,5 +1,5 @@
-﻿using EnglishNowDemo.Repositories;
-using EnglishNowDemo.Services;
+﻿using EnglishNowDemo.Services;
+using EnglishNowDemo.Services.Models.Turma;
 using EnglishNowDemo.Web.Mappings;
 using EnglishNowDemo.Web.ViewModels.Turma;
 using Microsoft.AspNetCore.Authorization;
@@ -157,9 +157,24 @@ namespace EnglishNowDemo.Web.Controllers
         [Route("listar")]
         public IActionResult Listar()
         {
-            var turmas = _turmaService.Listar();
+            IList<TurmaResult>? turmas = null;
 
-            var turmasViewModel = turmas.Select(c => c.MapToListarViewModel()).ToList();
+            if (User.IsInRole("Professor"))
+            {
+                var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
+
+                turmas = _turmaService.ListarPorUsuarioProfessor(usuarioId);
+            }
+            else
+            {
+                turmas = _turmaService.Listar();
+            }
+
+            var turmasViewModel = new ListarViewModel
+            {
+                Turmas = turmas.Select(c => c.MapToListarViewModel()).ToList(),
+                ExibirBotaoInserir = User.IsInRole("Administrador")
+            };
 
             return View(turmasViewModel);
         }

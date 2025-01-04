@@ -34,9 +34,9 @@ namespace EnglishNowDemo.Web.Mappings
             return model;
         }
 
-        public static ListarViewModel MapToListarViewModel(this TurmaResult model)
+        public static TurmaViewModel MapToListarViewModel(this TurmaResult model)
         {
-            var viewModel = new ListarViewModel
+            var viewModel = new TurmaViewModel
             {
                 Id = model.Id,
                 SemestreAno = $"{model.Semestre}º Semestre/{model.Ano}",

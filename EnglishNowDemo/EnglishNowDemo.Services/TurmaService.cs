@@ -19,6 +19,8 @@ namespace EnglishNowDemo.Services
         TurmaResult ObterPorId(int id);
 
         IList<TurmaResult> Listar();
+
+        IList<TurmaResult> ListarPorUsuarioProfessor(int usuarioId);
     }
 
     public class TurmaService : ITurmaService
@@ -115,6 +117,15 @@ namespace EnglishNowDemo.Services
         public IList<TurmaResult> Listar()
         {
             var professores = _turmaRepository.Listar();
+
+            var result = professores.Select(c => c.MapToTurmaResult()).ToList();
+
+            return result;
+        }
+
+        public IList<TurmaResult> ListarPorUsuarioProfessor(int usuarioId)
+        {
+            var professores = _turmaRepository.ListarPorUsuarioProfessor(usuarioId);
 
             var result = professores.Select(c => c.MapToTurmaResult()).ToList();
 

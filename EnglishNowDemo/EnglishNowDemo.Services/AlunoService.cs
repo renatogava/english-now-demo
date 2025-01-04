@@ -16,7 +16,7 @@ namespace EnglishNowDemo.Services
 
         IList<AlunoResult> Listar();
 
-        IList<AlunoResult> ListarPorUsuario(int usuarioId);
+        IList<AlunoResult> ListarPorUsuarioProfessor(int usuarioId);
 
         IList<AlunoResult> ListarPorTurma(int turmaId);
     }
@@ -163,9 +163,9 @@ namespace EnglishNowDemo.Services
             return result;
         }
 
-        public IList<AlunoResult> ListarPorUsuario(int usuarioId)
+        public IList<AlunoResult> ListarPorUsuarioProfessor(int usuarioId)
         {
-            var alunos = _alunoRepository.ListarPorUsuario(usuarioId);
+            var alunos = _alunoRepository.ListarPorUsuarioProfessor(usuarioId);
 
             var result = alunos.Select(c => c.MapToAlunoResult()).ToList();
 

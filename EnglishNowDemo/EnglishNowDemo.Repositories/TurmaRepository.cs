@@ -13,6 +13,8 @@ namespace EnglishNowDemo.Repositories
 
         IList<Turma> Listar();
 
+        IList<Turma> ListarPorUsuarioProfessor(int usuarioId);
+
         Turma? ObterPorId(int id);
     }
 
@@ -117,6 +119,53 @@ namespace EnglishNowDemo.Repositories
 
             return result;
         }
+
+        public IList<Turma> ListarPorUsuarioProfessor(int usuarioId)
+        {
+            var result = new List<Turma>();
+
+            using (var cnn = new MySqlConnection(ConnectionString))
+            {
+                string query = @$"select t.turma_id, p.professor_id, p.nome, p.email, p.usuario_id, t.ano, t.semestre, t.periodo, t.nivel
+                                    from 
+                                        turma t inner join 
+                                        professor p on t.professor_id = p.professor_id inner join
+                                        usuario u on p.usuario_id = u.usuario_id 
+                                    where u.usuario_id = { usuarioId } order by t.ano, t.semestre";
+
+                var cmd = new MySqlCommand(query, cnn);
+
+                cnn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var turma = new Turma
+                        {
+                            Id = reader.GetInt32(0),
+                            ProfessorId = reader.GetInt32(1),
+                            Professor = new Professor
+                            {
+                                Id = reader.GetInt32(1),
+                                Nome = reader.GetString(2),
+                                Email = reader.GetString(3),
+                                UsuarioId = reader.GetInt32(4),
+                            },
+                            Ano = reader.GetInt32(5),
+                            Semestre = reader.GetInt32(6),
+                            Periodo = reader.GetString(7),
+                            Nivel = reader.GetString(8)
+                        };
+
+                        result.Add(turma);
+                    }
+                }
+            }
+
+            return result;
+        }
+
 
         public Turma? ObterPorId(int id)
         {

@@ -2,7 +2,7 @@
 {
     public class ListarViewModel
     {
-        public IList<AlunoViewModel> Alunos { get; set; }
+        public IList<AlunoViewModel>? Alunos { get; set; }
 
         public bool ExibirBotaoInserirEditar { get; set; }
     }

@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `english_now_demo`.`aluno_turma_boletim` (
   `nota_bim2_final` DECIMAL(4,2) NULL DEFAULT NULL,
   `nota_final_semestre` DECIMAL(4,2) NULL DEFAULT NULL,
   `faltas_semestre` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`boletim_id`),
+  PRIMARY KEY (`aluno_turma_boletim_id`),
   CONSTRAINT `boletim_turma`
     FOREIGN KEY (`turma_id`)
     REFERENCES `english_now_demo`.`turma` (`turma_id`),

@@ -17,7 +17,7 @@ namespace EnglishNowDemo.Repositories
 
         IList<Aluno> ListarPorTurma(int turmaId);
 
-        IList<Aluno> ListarPorUsuario(int usuarioId);
+        IList<Aluno> ListarPorUsuarioProfessor(int usuarioId);
     }
 
     public class AlunoRepository : BaseRepository, IAlunoRepository
@@ -204,7 +204,7 @@ namespace EnglishNowDemo.Repositories
             return result;
         }
 
-        public IList<Aluno> ListarPorUsuario(int usuarioId)
+        public IList<Aluno> ListarPorUsuarioProfessor(int usuarioId)
         {
             var result = new List<Aluno>();
 
